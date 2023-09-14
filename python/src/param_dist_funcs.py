@@ -6,7 +6,7 @@ from utils import kalman_filter, zeus_mcmc, lognorm_pdf, \
 				  non_Gauss_1D_filtering, diag_gaussian_2d_pdf, \
 				  nearest_PD
 import matplotlib
-matplotlib.use('Agg')
+# matplotlib.use('Agg')  # to use matplotlib in notebooks
 import matplotlib.pyplot as plt
 
 
@@ -128,10 +128,12 @@ class param_est():
 		ax2.legend()
 		ax2.set_xlabel('Time (s)')
 		
+		plt.suptitle('Initial bleaching curve estimation')
 		plt.tight_layout()
-		out_dir = self.a.res_dir + '/param_dists'
-		plt.savefig('%s/initial_est_bleach_trend.png' % out_dir, dpi=300)
-		plt.close('all')
+		plt.show()
+		# out_dir = self.a.res_dir + '/param_dists'
+		# plt.savefig('%s/initial_est_bleach_trend.png' % out_dir, dpi=300)
+		# plt.close('all')
 		
 	def calc_prior_modes(self):
 		"""
@@ -381,7 +383,7 @@ class param_est():
 		print ('Covariance matrix eigs', eigs)
 		print ('Time elapsed:', time.time() - timenow)
 		
-	def plot_prior_and_post_dists(self):
+	def plot_prior_and_post_dists(self, save_pic=False):
 		"""
 		Plots prior and posterior distributions in both linear and log.
 		"""
@@ -443,10 +445,15 @@ class param_est():
 			ax2.set_xlabel(name)
 			ax2.legend()
 			plt.tight_layout()
-			out_dir = self.a.res_dir + '/param_dists'
-			plt.savefig('%s/%s.png' % (out_dir, name), dpi=300)
+
+			if save_pic:
+				out_dir = self.a.res_dir + '/param_dists'
+				plt.savefig('%s/%s.png' % (out_dir, name), dpi=300)
+				plt.close('all')
+			else:
+				plt.show()
 		
-	def sample_from_post_dist(self):
+	def sample_from_post_dist(self, show_pic=False):
 		"""
 		Gets samples from posterior of parameters by doing either Laplace 
 		approximation or MCMC. These are then used to estimate the states.
@@ -483,5 +490,7 @@ class param_est():
 		else:
 			filename = '%s/posterior_data.pkl' % out_dir
 		pickle.dump(data, open(filename, 'wb'))
-		self.plot_prior_and_post_dists()	
+
+		if show_pic:
+			self.plot_prior_and_post_dists()	
 		

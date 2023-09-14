@@ -86,10 +86,10 @@ class analyze_FRET_data():
 			self.tDD = self.data_dict['tDD']
 			self.tAA = self.data_dict['tAA']
 			
-			a = param_est(self)
-			a.gen_prior_dist()
-			a.sample_from_post_dist()
+			self.a = param_est(self)
+			self.a.gen_prior_dist()
+			self.a.sample_from_post_dist()
 			
-			b = state_est(self, a)
-			b.sample_from_post_dist()
+			self.b = state_est(self, self.a)
+			self.b.sample_from_post_dist()
 			

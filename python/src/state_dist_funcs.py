@@ -5,7 +5,7 @@ from pathos.multiprocessing import ProcessingPool
 from utils import kalman_filter, RTS_smoother, non_Gauss_1D_filtering, \
 				  non_Gauss_1D_smoothing, diag_gaussian_2d_pdf
 import matplotlib
-matplotlib.use('Agg')
+# matplotlib.use('Agg')  # to use matplotlib in notebooks
 import matplotlib.pyplot as plt
 		
 
@@ -199,7 +199,7 @@ class state_est():
 		R = (self.a.IDA - d*self.a.IDD - a*IAA_pred)/self.a.IDD
 		self.pred['E_FRET_corr'] = R/(R + G)*self.a.IAA[0]/IAA_pred
 		
-	def plot_pred(self):
+	def plot_pred(self, save_pic=False):
 		"""
 		Save the predictions to file.
 		"""
@@ -248,9 +248,13 @@ class state_est():
 		plt.ylim(bottom=0, top=None)
 		plt.legend()
 		plt.tight_layout()
-		filename = '%s/E.png' % out_dir
-		plt.savefig(filename, dpi=600)
-		plt.close('all')
+
+		if save_pic:
+			filename = '%s/E.png' % out_dir
+			plt.savefig(filename, dpi=600)
+			plt.close('all')
+		else:
+			plt.show()
 		
 	def sample_from_post_dist(self):
 		"""
