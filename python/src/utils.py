@@ -102,7 +102,8 @@ def kalman_filter(Q, H, R, y, m_0, P_0, t_vec):
 	
 	m_k = m_0
 	P_k = P_0
-		
+	
+	print("Kalman in progress")
 	for k in range(N):
 		
 		m_pred_k = m_k

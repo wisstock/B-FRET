@@ -327,7 +327,6 @@ class param_est():
 			neg_log_y = -np.sum(np.log(np.sum(dx*p1*LHs, axis=-1)), axis=0)
 		
 		log_post = neg_log_prior + neg_log_IAA + neg_log_y
-		print (log_post)
 		return  log_post
 		
 	def log_posterior(self, log_p):

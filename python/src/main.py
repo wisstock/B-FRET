@@ -37,6 +37,8 @@ class analyze_FRET_data():
 		
 		self.m = define_model_functions.model()
 		self.anl_params = define_analysis_params.anl_params()
+		print(self.anl_params.curve_fit_options)
+
 		self.m.f_D = self.m.f_D()
 		self.m.f_A = self.m.f_A()
 		self.m.prior_dict = self.m.prior_dict()

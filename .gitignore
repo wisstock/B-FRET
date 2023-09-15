@@ -1,3 +1,4 @@
 *.pyc
-python/scripts/*
+demo_data/
 !python/scripts/sample_run_script.py
+__pycache__/
